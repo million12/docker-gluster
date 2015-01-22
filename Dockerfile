@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM million12/centos-supervisor
 MAINTAINER Marcin Ryzycki marcin@m12.io, Przemyslaw Ozgo linux@ozgo.info
 
 RUN \
@@ -7,11 +7,13 @@ RUN \
     yum remove -y fakesystemd && \
     yum install -y systemd wget bind-utils && \
     cd /tmp/ && \
-    wget -l 1 -nd -nc -r -A.rpm http://download.gluster.org/pub/gluster/glusterfs/LATEST/RHEL/epel-7/x86_64/ && \
+    wget -l 1 -nd -nc -r -A.rpm http://download.gluster.org/pub/gluster/glusterfs/3.6/3.6.2/EPEL.repo/epel-7/x86_64/ && \
     yum install -y gluster* && \
     rm -f gluster* && \
     yum clean all
 
-COPY start.sh /start.sh
+COPY container-files /
 
-CMD /start.sh
+ENV GLS_ADDRESS 127.0.0.1
+ENV GLS_VOLUME_NAME gv0
+ENV GLS_MOUNT /mnt/gv0

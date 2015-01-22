@@ -4,11 +4,11 @@ machine:
 
 dependencies:
   override:
-    - docker pull million12/gluster
+    - docker pull million12/gluster:devel
 
 test:
   override:
-    - docker run -d --name gluster --net host --privileged million12/gluster
+    - docker run -d --name gluster --net host --privileged -e DEPLOYMENT="daemon" million12/gluster:devel
     # FYI Rest of the tests is not supported by CircleCI LXC Backend. Need to wait for implementation of docker exec
     # Check if daemon working and listing No Volumes Present
     #- docker exec -ti gluster gluster volume info
