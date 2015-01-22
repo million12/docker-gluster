@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM million12/centos-supervisor
 MAINTAINER Marcin Ryzycki marcin@m12.io, Przemyslaw Ozgo linux@ozgo.info
 
 RUN \
@@ -12,6 +12,4 @@ RUN \
     rm -f gluster* && \
     yum clean all
 
-COPY start.sh /start.sh
-
-CMD /start.sh
+COPY container-files /
